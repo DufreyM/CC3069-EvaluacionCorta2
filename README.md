@@ -6,8 +6,7 @@
 |---|---|
 | `secuencial.cpp` | Versión secuencial: un solo flujo de ejecución lee el archivo carácter por carácter. |
 | `paralelo.cpp` | Versión paralela (fork-join) con `std::thread`: divide el archivo en N bloques de bytes, cada hilo cuenta su bloque en un diccionario local y al final se combinan (reduce) en un diccionario global. |
-| `prueba.txt` | Archivo de prueba pequeño (frases con palabras repetidas). |
-| `prueba_grande.txt` | Archivo de prueba generado (≈187 KB, 20 000 tokens) para probar con más hilos y validar bordes de bloque. |
+| `Quijote.txt` | Archivo de prueba robado de google. |
 | `comparar.sh` | Compila ambas versiones, las ejecuta sobre el mismo archivo y verifica que el resultado sea idéntico. |
 
 ## Compilar y ejecutar manualmente
