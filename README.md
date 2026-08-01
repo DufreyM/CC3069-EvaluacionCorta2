@@ -1,4 +1,4 @@
-# Práctica Guiada 01 – Parte 02: Conteo de frecuencia de palabras (secuencial vs. paralelo)
+# Evaluacion Corta 2
 
 ## Archivos
 
