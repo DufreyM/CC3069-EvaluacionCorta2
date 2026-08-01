@@ -1,13 +1,3 @@
-// Version PARALELA (fork-join) del algoritmo de conteo de frecuencia de
-// palabras. El archivo se divide en N bloques de bytes aproximadamente
-// iguales. 
-// (cada hilo escribe en su propio mapa localpor lo que no hay condiciones de carrera).
-//
-// Compilar:  g++ -O2 -std=c++17 -pthread -o paralelo paralelo.cpp
-// Ejecutar:  ./paralelo archivo.txt [numero_de_hilos]
-
-#include <iostream>
-#include <fstream>
 #include <map>
 #include <vector>
 #include <thread>
@@ -22,6 +12,10 @@
 #endif
 
 using Frecuencia = std::map<std::string, long long>;
+
+inline bool esCaracterDePalabra(unsigned char c) {
+    return std::isalnum(c) || c >= 0x80;
+}
 
 bool fijarAfinidadNucleo(std::thread& hilo, unsigned int nucleo) {
 #if defined(_WIN32)
@@ -54,10 +48,10 @@ void procesarBloque(const std::string& rutaArchivo,
         char anterior;
         archivo.seekg(-1, std::ios::cur);
         archivo.get(anterior);
-        if (std::isalnum(static_cast<unsigned char>(anterior))) {
+        if (esCaracterDePalabra(static_cast<unsigned char>(anterior))) {
             char c;
             while (archivo.get(c)) {
-                if (!std::isalnum(static_cast<unsigned char>(c))) break;
+                if (!esCaracterDePalabra(static_cast<unsigned char>(c))) break;
             }
         } else {
             archivo.seekg(inicio); 
@@ -73,7 +67,7 @@ void procesarBloque(const std::string& rutaArchivo,
     while (archivo.get(c)) {
         posActual = archivo.tellg();
 
-        if (std::isalnum(static_cast<unsigned char>(c))) {
+        if (esCaracterDePalabra(static_cast<unsigned char>(c))) {
             palabra += c;
         } else {
             if (!palabra.empty()) {

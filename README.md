@@ -1,13 +1,23 @@
 # Evaluacion Corta 2
-
+Video : https://canva.link/m6yv1qglxm3n031
 ## Archivos
 
 | Archivo | Descripción |
 |---|---|
+| `diagrama_flujo_paralelo.png` | Diagrama de flujo de la versión paralela: lectura del archivo, división en bloques, creación de hilos, conteo parcial por hilo, join (sincronización) y combinación de resultados. |
 | `secuencial.cpp` | Versión secuencial: un solo flujo de ejecución lee el archivo carácter por carácter. |
 | `paralelo.cpp` | Versión paralela (fork-join) con `std::thread`: divide el archivo en N bloques de bytes, cada hilo cuenta su bloque en un diccionario local y al final se combinan (reduce) en un diccionario global. |
-| `Quijote.txt` | Archivo de prueba robado de google. |
+| `Quijote.txt` | Archivo de prueba (texto completo de El Quijote, UTF-8). |
 | `comparar.sh` | Compila ambas versiones, las ejecuta sobre el mismo archivo y verifica que el resultado sea idéntico. |
+
+## Nota sobre codificación
+
+El tokenizador considera parte de una palabra cualquier byte >= 0x80, además de
+`isalnum`. Esto es necesario porque el archivo está en UTF-8 y las vocales con
+tilde y la ñ se codifican con bytes fuera del rango ASCII: sin este ajuste,
+`std::isalnum` corta la palabra a la mitad (p. ej. "después" se leería como
+"despu" + "s"). La misma función (`esCaracterDePalabra`) se usa en ambas
+versiones para garantizar que el tokenizado sea idéntico.
 
 ## Compilar
 

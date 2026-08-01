@@ -1,7 +1,3 @@
-// Version SECUENCIAL del algoritmo de conteo de frecuencia de palabras.
-// Compilar:  g++ -O2 -std=c++17 -o secuencial secuencial.cpp
-// Ejecutar:  ./secuencial archivo.txt
-
 #include <iostream>
 #include <fstream>
 #include <map>
@@ -11,6 +7,11 @@
 
 
 using Frecuencia = std::map<std::string, long long>;
+
+
+inline bool esCaracterDePalabra(unsigned char c) {
+    return std::isalnum(c) || c >= 0x80;
+}
 
 // Procesa un archivo completo caracter por caracter 
 Frecuencia contarPalabras(const std::string& rutaArchivo) {
@@ -28,7 +29,7 @@ Frecuencia contarPalabras(const std::string& rutaArchivo) {
 
     // Mientras existan caracteres por leer en el documento
     while (archivo.get(c)) {
-        if (std::isalnum(static_cast<unsigned char>(c))) {
+        if (esCaracterDePalabra(static_cast<unsigned char>(c))) {
             // c es letra o numero -> palabra = palabra + c
             palabra += c;
         } else {
