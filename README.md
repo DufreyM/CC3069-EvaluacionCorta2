@@ -9,7 +9,7 @@
 | `Quijote.txt` | Archivo de prueba robado de google. |
 | `comparar.sh` | Compila ambas versiones, las ejecuta sobre el mismo archivo y verifica que el resultado sea idéntico. |
 
-## Compilar y ejecutar manualmente
+## Compilar
 
 ```bash
 g++ -O2 -std=c++17 -o secuencial secuencial.cpp
@@ -19,7 +19,7 @@ g++ -O2 -std=c++17 -pthread -o paralelo paralelo.cpp
 ./paralelo archivo.txt 4      
 ```
 
-## Verificación automática
+## Verificación
 
 ```bash
 ./comparar.sh prueba.txt 4
@@ -27,4 +27,4 @@ g++ -O2 -std=c++17 -pthread -o paralelo paralelo.cpp
 ```
 
 Se probó con 3, 4, 8 y 16 hilos sobre ambos archivos: en todos los casos la versión
-paralela produce **exactamente las mismas palabras y frecuencias** que la secuencial.
+paralela produce **exactamente las mismas palabras y frecuencias** que la secuencial, solo que en algunos principalmente en las pequeñas nuestro overhead hacía que la versión paralela se tardara más que la secuencial, no obstante esto mejora a partir de los 8 hilos, lo cuál es un resultado que esperabamos porque es un costo que hay que asumir. 
